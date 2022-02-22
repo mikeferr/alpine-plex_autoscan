@@ -19,7 +19,9 @@ case "$s6_arch" in
     ;;
 esac
 curl -sX GET "https://api.github.com/repos/just-containers/s6-overlay/releases/latest" | awk '/tag_name/{print $4;exit}' FS='[""]' >/etc/S6_RELEASE && \
-s6_url="https://github.com/just-containers/s6-overlay/releases/download/`cat /etc/S6_RELEASE`/s6-overlay-$s6_arch-`echo {`cat /etc/S6_RELEASE`/v/""`.tar.xz"
+v1=`cat /etc/S6_RELEASE`
+v2=echo "$v1" | tr v -
+s6_url="https://github.com/just-containers/s6-overlay/releases/download/$v1/s6-overlay-$s6_arch$v2.tar.xz"
 echo "Downloading from $s6_url" && \
 wget $s6_url -O /tmp/s6-overlay.tar.xz && \
 tar xzf /tmp/s6-overlay.tar.xz -C / && \
