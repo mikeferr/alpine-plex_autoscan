@@ -24,6 +24,6 @@ v2=${v1//[v]/-}
 s6_url="https://github.com/just-containers/s6-overlay/releases/download/$v1/s6-overlay-$s6_arch$v2.tar.xz"
 echo "Downloading from $s6_url" && \
 wget $s6_url -O /tmp/s6-overlay.tar.xz && \
-tar xzf /tmp/s6-overlay.tar.xz -C / && \
+tar -C / -Jxpf /tmp/s6-overlay.tar.xz && \
 rm /tmp/s6-overlay.tar.xz && \
 echo "Installed s6-overlay $v1 ($s6_arch)"
